@@ -12,6 +12,7 @@ class Autor(models.Model):
     apellidos = models.CharField(max_length=220, blank=False, null=False)
     nacionalidad = models.CharField(max_length= 100, blank=False, null=False)
     descripcion = models.TextField(blank=False, null=False)
+    estado = models.BooleanField('Estado', default=True)
     fecha_creacion = models.DateField('Fecha de creación', auto_now =True, auto_now_add = False)
 
 

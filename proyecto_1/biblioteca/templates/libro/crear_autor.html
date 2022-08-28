@@ -3,9 +3,63 @@
 {% block titulo %}Creación de autor{% endblock titulo %}
 {% block body %}
     <form method="POST"> 
-        {% csrf_token %}      
-        {{ autor_form.as_p }}
+        {% csrf_token %}    
+        {% if error %} 
+            <h2>{{ error }}</h2> 
+        {% else %}
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>Apellido</label>
+            <input type="text" name="apellidos">
+            <label>Nacionalidad</label>
+            <input type="text" name="nacionalidad">
+            <label>Descripción</label>
+            <input type="text" name="descripcion">
+            <button type="submit">Crear</button>
+        {% endif %}
         
-        <button type="submit">Crear</button>
     </form>
 {% endblock body %}
+
+<!--
+
+- Renderizado tomando datos de forms.
+
+ <form method="POST"> 
+        {% csrf_token %}    
+        {% if error %} 
+            <h2>{{ error }}</h2> 
+        {% else %}
+            <label>Nombre</label>
+            <input type="text" name="nombre">
+            <label>Apellido</label>
+            <input type="text" name="apellidos">
+            <label>Nacionalidad</label>
+            <input type="text" name="nacionalidad">
+            <label>Descripción</label>
+            <input type="text" name="descripcion">
+
+        
+            <button type="submit">Crear</button>
+        {% endif %}
+        
+    </form>
+
+
+
+-  Renderizado de formulario por defecto con DJANGO.
+<form method="POST"> 
+        {% csrf_token %}    
+        {% if error %} 
+            <h2>{{ error }}</h2> 
+        {% else %}
+            {{ autor_form.as_p }}
+        
+            <button type="submit">Crear</button>
+        {% endif %}
+        
+    </form>
+
+
+
+-->
