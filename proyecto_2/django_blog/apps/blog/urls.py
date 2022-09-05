@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, generales,programacion,tecnologia,tutoriales,videojuegos
+from .views import detallePost, home, generales,programacion,tecnologia,tutoriales,videojuegos
 
 urlpatterns = [
     path('',home, name='index'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('tecnologia/',tecnologia, name='tecnologia'),
     path('tutoriales/',tutoriales, name='tutoriales'),
     path('videojuegos/',videojuegos, name='videojuegos'),
+    path('<slug:slug>',detallePost, name= 'detalle_post'),
 ]
