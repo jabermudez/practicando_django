@@ -30,6 +30,7 @@ class PostAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ('titulo', 'slug', 'descripcion','fecha_creacion',)
     resource_class = PostResource
 
+
 admin.site.register(Categoria,CategoriaAdmin)
 admin.site.register(Autor,AutorAdmin)
 admin.site.register(Post,PostAdmin)
