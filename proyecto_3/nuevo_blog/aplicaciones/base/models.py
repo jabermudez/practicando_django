@@ -30,6 +30,7 @@ class Autor(ModeloBase):
     apellidos = models.CharField('Apellidos', max_length=120)
     email = models.EmailField('Correo Electrónico', max_length=200)
     descripcion = models.TextField('Descripción')
+    imagen_referencial = models.ImageField('Imagen Referencial', null = True, blank=True,upload_to = 'autores/')
     web = models.URLField('Web', null=True, blank=True)
     facebook = models.URLField('Facebook', null=True, blank=True)
     twitter = models.URLField('Twitter', null=True, blank=True)
@@ -49,7 +50,7 @@ class Post(ModeloBase):
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     contenido = RichTextField()
-    imagen_referencia = models.ImageField('Imagen Referencial', upload_to = 'imagenes/', max_length=255)
+    imagen_referencial = models.ImageField('Imagen Referencial', upload_to = 'imagenes/', max_length=255)
     publicado = models.BooleanField('Publicado / No Publicado', default=False)
     fecha_publicacion = models.DateField('Fecha de Publicación')
 
