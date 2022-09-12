@@ -1,20 +1,10 @@
 import random
-from django.shortcuts import render
-from django.views.generic import ListView
-from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, View, DetailView
 from .models import Post, Categoria, RedesSociales, Web
+from .utils import *
+from .forms import ContactoForm
 
-def consulta(id):
-    try:
-        return Post.objects.get(id = id)
-    except:
-        return None
-
-def obtenerRedes():
-    return RedesSociales.objects.filter(estado = True).latest('fecha_creacion')
-
-def obtenerWeb():
-    return Web.objects.filter(estado = True).latest('fecha_creacion')
 
 class Inicio(ListView):
 
@@ -73,51 +63,43 @@ class Inicio(ListView):
         }
         return render(request, 'index.html',contexto)
 
-class ListadoVideojuegos(ListView):
+class Listado(ListView):
 
-    def get(self,request,*args,**kwargs):
-        posts_videojuegos = Post.objects.filter(
-                            estado = True,
-                            publicado = True,
-                            categoria = Categoria.objects.get(nombre = 'Videojuegos')
-                            )
-        try:
-            categoria = Categoria.objects.get(nombre = 'Videojuegos')
-        except:
-            categoria = None
-
-        paginator = Paginator(posts_videojuegos,3)
-        pagina = request.GET.get('page')
-        posts = paginator.get_page(pagina)
-
-        contexto = {
-            'posts': posts,
-            'sociales': obtenerRedes(),
-            'web':obtenerRedes(),
-            'categoria':categoria,
-        }
+    def get(self,request,nombre_categoria,*args,**kwargs):
+        contexto = generarCategoria(request, nombre_categoria)    
         return render(request, 'categoria.html',contexto)
 
-class ListadoGeneral(ListView):
-    def get(self,request, *args, **kwargs):
-        posts_generales = Post.objects.filter(
-                            estado = True,
-                            publicado = True,
-                            categoria = Categoria.objects.get(nombre = 'General')
-                            )
-        try:
-            categoria = Categoria.objects.get(nombre = 'General')
-        except:
-            categoria = None
-        
-        paginator = Paginator(posts_generales, 3)
-        pagina = request.GET.get('page')
-        posts =paginator.get_page(pagina)
-
+class FormularioContacto(View):
+    def get(self,request,*args,**kwargs):
+        form = ContactoForm()
         contexto = {
-            'posts':posts,
+            'sociales': obtenerRedes(),
+            'web': obtenerWeb(),
+            'form': form,
+        }
+        return render(request,'contacto.html', contexto)
+    
+    def post(self, request, *args, **kwargs):
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('base:index')
+        else:
+            contexto = {
+                'form':form,
+            }
+            return render(request, 'contacto.html', contexto)
+
+class DetallePost(DetailView):
+    def get(self, request, slug, *args, **kwargs):
+        try:
+            post = Post.objects.get(slug = slug)
+        except:
+            post = None
+        
+        contexto = {
+            'post':post,
             'sociales':obtenerRedes(),
             'web':obtenerWeb(),
-            'categoria':categoria,
         }
-        return render(request, 'categoria.html',contexto)
+        return render(request, 'post.html',contexto)
