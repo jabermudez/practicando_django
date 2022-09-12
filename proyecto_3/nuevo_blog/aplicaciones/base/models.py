@@ -62,7 +62,7 @@ class Post(ModeloBase):
         return self.titulo
 
 class Web(ModeloBase):
-    Nosotros = models.TextField('Nosotros')
+    nosotros = models.TextField('Nosotros')
     telefono = models.CharField('Teléfono', max_length=10)
     email = models.EmailField('Correo Electrónico', max_length=200)
     direccion = models.CharField('Direccion', max_length=200)
