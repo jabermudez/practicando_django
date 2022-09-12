@@ -7,6 +7,58 @@
 {% block body %}
 
     {% if autores %}
+
+    <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Nacionalidad</th>
+                    <th>Descripción</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autor in autores %}
+                    <tr>
+                        <td>{{ autor.id }}</td>
+                        <td>{{ autor.nombre }}</td>
+                        <td>{{ autor.apellidos }}</td>
+                        <td>{{ autor.nacionalidad }}</td>
+                        <td>{{ autor.descripcion }}</td>
+                        <td colspan="2">
+                            <a href="{% url 'libro:editar_autor' autor.id %}" class=" flex btn btn-primary">Editar</a>
+                            <a href="{% url 'libro:eliminar_autor' autor.id %}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                        <td></td>
+                            
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <table>
             <thead>
                 <tr>

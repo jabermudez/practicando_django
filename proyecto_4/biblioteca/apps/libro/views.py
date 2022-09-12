@@ -16,7 +16,7 @@ class Inicio(View):
         return render(request,'index.html')
 '''
 
-class Inicio(TemplateView):
+class Inicio(TemplateView): 
     template_name = 'index.html'
 
 class ListarAutor(ListView):
