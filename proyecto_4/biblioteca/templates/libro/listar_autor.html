@@ -4,7 +4,12 @@
     Listado de Autores
 {% endblock titulo %}
 
+{% block titulo_central %} 
+    <h2 class="title-1"> Listado Autores</h2>
+{% endblock titulo_central %}
+
 {% block body %}
+
 
     {% if autores %}
 
@@ -12,7 +17,7 @@
         <table class="table table-borderless table-data3">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>ID</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Nacionalidad</th>
@@ -29,62 +34,18 @@
                         <td>{{ autor.nacionalidad }}</td>
                         <td>{{ autor.descripcion }}</td>
                         <td colspan="2">
-                            <a href="{% url 'libro:editar_autor' autor.id %}" class=" flex btn btn-primary">Editar</a>
-                            <a href="{% url 'libro:eliminar_autor' autor.id %}" class="btn btn-danger">Eliminar</a>
+                            <div class="d-grid d-md-flex">
+                            <a href="{% url 'libro:editar_autor' autor.id %}" class="btn btn-primary mr-2" >Editar</a>
+                            <a href="{% url 'libro:eliminar_autor' autor.id %}" class="btn btn-danger" role="button">Eliminar</a>
+                            </div>
                         </td>
-                        <td></td>
-                            
-                        
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Nacionalidad</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for autor in autores %}
-                    <tr>
-                        <td>{{ autor.id }}</td>
-                        <td>{{ autor.nombre }}</td>
-                        <td>{{ autor.apellidos }}</td>
-                        <td>{{ autor.nacionalidad }}</td>
-                        <td>{{ autor.descripcion }}</td>
-                        <td>
-                            <a href="{% url 'libro:editar_autor' autor.id %}">Editar</a>
-                            <a href="{% url 'libro:eliminar_autor' autor.id %}">Eliminar</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+       
     {% else %}
         <h1>No existen autores registrados</h1>
     {% endif %}
