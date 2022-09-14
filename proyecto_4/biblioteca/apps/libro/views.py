@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import AutorForm
 from .models import Autor
-from django.views.generic import TemplateView, ListView, UpdateView, CreateView
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 
 
@@ -37,7 +37,23 @@ class CrearAutor(CreateView):
     form_class = AutorForm
     template_name = 'libro/crear_autor.html'
     success_url = reverse_lazy('libro:listar_autor')
+
+'''  eliminación Lógica
+
+class EliminarAutor(DeleteView):
+    model = Autor 
+    success_url = reverse_lazy('libro:listar_autor')
+'''
+
+class EliminarAutor(DeleteView):
+    model = Autor 
     
+    def post(self, request,pk,*args, **kwargs):
+        object = Autor.objects.get(id=pk)
+        object.estado = False
+        object.save()
+        return redirect('libro:listar_autor')
+
 
 
 #Eliminación completa de la base de datos de un registro
