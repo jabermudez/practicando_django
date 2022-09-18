@@ -61,13 +61,13 @@ class Inicio(ListView):
             'web':obtenerWeb(),
 
         }
-        return render(request, 'index.html',contexto)
+        return render(request,'index.html',contexto)
 
 class Listado(ListView):
 
     def get(self,request,nombre_categoria,*args,**kwargs):
         contexto = generarCategoria(request, nombre_categoria)    
-        return render(request, 'categoria.html',contexto)
+        return render(request,'categoria.html',contexto)
 
 class FormularioContacto(View):
     def get(self,request,*args,**kwargs):

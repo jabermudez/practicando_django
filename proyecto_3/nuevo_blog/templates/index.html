@@ -138,7 +138,7 @@
          <div class="col-lg-6 mb-6 mb-lg-6">
            <div class="section-heading mb-5 d-flex align-items-center">
              <h2> {{ post_general.categoria | upper }} </h2>
-             <div class="ml-auto"><a href="{% url 'base:general' %}" class="view-all-btn">VER TODOS</a></div>
+             <div class="ml-auto"><a href="{% url 'base:generales' %}" class="view-all-btn">VER TODOS</a></div>
            </div>
            <div class="entry2 mb-5">
              <a href="{% url 'base:detalle_post' post_general.slug %}"><img src=" {{ post_general.imagen_referencial.url }} " alt="Image" class="img-fluid rounded"></a>
