@@ -1,7 +1,9 @@
 import random
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, View, DetailView
-from .models import Post, Categoria, RedesSociales, Web
+from django.core.mail import send_mail
+from nuevo_blog.configuracion.base import EMAIL_HOST_USER
+from .models import Post, Categoria, RedesSociales, Web, Suscriptor
 from .utils import *
 from .forms import ContactoForm
 
@@ -97,9 +99,41 @@ class DetallePost(DetailView):
         except:
             post = None
         
+        posts = list(Post.objects.filter(
+                estado = True,
+                publicado = True
+                ).values_list('id',flat = True))
+        
+        posts.remove(post.id)
+        post1 = random.choice(posts)
+        posts.remove(post1)
+
+        post2 = random.choice(posts)
+        posts.remove(post2)
+
+        post3 = random.choice(posts)
+        posts.remove(post3)
+
         contexto = {
             'post':post,
             'sociales':obtenerRedes(),
             'web':obtenerWeb(),
+            'post1':consulta(post1),
+            'post2':consulta(post2),
+            'post3':consulta(post3)
+
         }
         return render(request, 'post.html',contexto)
+
+class Suscribir(View):
+    def post(self,request,*args,**kwargs):
+        correo = request.POST.get('correo')
+        Suscriptor.objects.create(correo = correo)
+        asunto= 'GRACIAS POR SUSCRIBIRTE A MI BLOG'
+        mensaje = 'Suscripción Exitosa, gracias por su preferencia!!!'
+        try:
+            send_mail(asunto, mensaje, EMAIL_HOST_USER, [correo])
+        except:
+            pass
+
+        return redirect('base:index')

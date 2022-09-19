@@ -155,7 +155,7 @@
         <div class="col-lg-6 mb-6 mb-lg-6">
           <div class="section-heading mb-5 d-flex align-items-center">
             <h2> {{ post_videojuegos.categoria | upper }} </h2>
-            <div class="ml-auto"><a href="{% url 'base:detalle_post' %}" class="view-all-btn">VER TODOS</a></div>
+            <div class="ml-auto"><a href="{% url 'base:videojuegos' %}" class="view-all-btn">VER TODOS</a></div>
           </div>
           <div class="entry2 mb-5">
             <a href="{% url 'base:detalle_post' post_videojuegos.slug %}"><img src=" {{ post_videojuegos.imagen_referencial.url }} " alt="Image" class="img-fluid rounded"></a>
@@ -191,7 +191,7 @@
          <div class="col-md-4">
            <div class="mb-5">
              <h3 class="footer-heading mb-4">SUSCRÍBETE</h3>
-             <form action="" method="post" class="form-footer-subscribe">
+             <form action="{% url 'base:suscribirse' %}" method="post" class="form-footer-subscribe">
                {% csrf_token %}
                <div class="form-group d-flex">
                  <input type="text" class="form-control" name="correo">
