@@ -22,20 +22,20 @@ class Inicio(TemplateView):
 
 class ListarAutor(ListView):
     model = Autor
-    template_name = 'libro/listar_autor.html'
+    template_name = 'libro/autor/listar_autor.html'
     context_object_name = 'autores'
     queryset = Autor.objects.filter(estado=True)
 
 class ActualizarAutor(UpdateView):
     model = Autor
     form_class = AutorForm
-    template_name = 'libro/crear_autor.html'    
+    template_name = 'libro/autor/crear_autor.html'    
     success_url = reverse_lazy('libro:listar_autor')
 
 class CrearAutor(CreateView):
     model = Autor 
     form_class = AutorForm
-    template_name = 'libro/crear_autor.html'
+    template_name = 'libro/autor/crear_autor.html'
     success_url = reverse_lazy('libro:listar_autor')
 
 '''  eliminación Lógica
@@ -94,4 +94,4 @@ def eliminarAutor(request,id):
         autor.estado = False
         autor.save()
         return redirect('libro:listar_autor')
-    return render(request, 'libro/eliminar_autor.html', {'autor':autor})
+    return render(request, 'libro/autor/eliminar_autor.html', {'autor':autor})
