@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+{% block titulo %}
+    Listado de Libros
+{% endblock titulo %}
+
+{% block titulo_central %} 
+    <h2 class="title-1"> Listado Libros</h2>
+{% endblock titulo_central %}
+
+{% block body %}
+
+
+    {% if object_list %}
+
+    <div class="table-responsive m-b-40">
+        <table class="table table-borderless table-data3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Autor</th>
+                    <th>Fecha de publicación</th>                    
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in object_list %}
+                    <tr>
+                        <td>{{ libro.id }}</td>
+                        <td>{{ libro.titulo }}</td>                        
+                        <td>
+                            {% for autor in libro.autor_id.all %}
+                                <li>{{ autor.nombre }}</li>
+                            {% endfor %}
+                        </td> 
+                        <td>{{ libro.fecha_publicacion }}</td>                       
+                        <td colspan="2">
+                            <div class="d-grid d-md-flex">
+                            <a href="" class="btn btn-primary mr-2" >Editar</a>
+                            <a href="" class="btn btn-danger" role="button">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+       
+    {% else %}
+        <h1>No existen libros registrados</h1>
+    {% endif %}
+
+{% endblock body %}

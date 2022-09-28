@@ -107,9 +107,17 @@
                             </ul>
                         </li>
                         
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Libros</a>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Libros</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="">Registro Libros</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'libro:listado_libros' %}">Listado de Libros</a>
+                                </li>                                
+                            </ul>
                         </li>
                     </ul>
                 </nav>

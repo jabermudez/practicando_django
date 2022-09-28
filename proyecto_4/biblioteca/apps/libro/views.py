@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import AutorForm
-from .models import Autor
+from .models import Autor, Libro
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -84,8 +84,8 @@ def eliminarAutor(request,id):
     return redirect('libro:listar_autor')
     
 
-"""
 
+"""
 #Eliminación lógica o desactivación de la base de datos de un registro
 
 def eliminarAutor(request,id):
@@ -95,3 +95,9 @@ def eliminarAutor(request,id):
         autor.save()
         return redirect('libro:listar_autor')
     return render(request, 'libro/autor/eliminar_autor.html', {'autor':autor})
+
+
+
+class ListadoLibros(ListView):
+    model = Libro
+    template_name = 'libro/libro/listar_libro.html' # queryset = Libro.objects.all() object_list
