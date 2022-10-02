@@ -1,4 +1,5 @@
 from argparse import BooleanOptionalAction
+from email.policy import default
 from pyexpat import model
 from tabnanny import verbose
 from django.db import models
@@ -30,6 +31,7 @@ class Libro(models.Model):
     fecha_publicacion = models.DateField('Fecha de publicación', blank = False, null = False)
     autor_id = models.ManyToManyField(Autor)
     fecha_creacion = models.DateField('Fecha de creación', auto_now =True, auto_now_add = False)
+    estado = models.BooleanField(default = True, verbose_name = 'Estado')
 
     #ManyToManyField - Campo de muchos a muchos
     #one

@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block titulo %}
+    Confirmacion de eliminacion
+{% endblock titulo %}
+
+{% block body %}
+
+<form method="post">
+    {% csrf_token %}
+    <p><Strong>¿Desea eliminar el registro {{ object }}</Strong></p>
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+</form>
+
+{% endblock body %}

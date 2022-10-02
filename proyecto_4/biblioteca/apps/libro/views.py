@@ -1,7 +1,7 @@
 from urllib import request
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import AutorForm
+from .forms import AutorForm, LibroForm
 from .models import Autor, Libro
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
@@ -101,3 +101,25 @@ def eliminarAutor(request,id):
 class ListadoLibros(ListView):
     model = Libro
     template_name = 'libro/libro/listar_libro.html' # queryset = Libro.objects.all() object_list
+    queryset = Libro.objects.filter(estado = True)
+
+class CrearLibro(CreateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'libro/libro/crear_libro.html'
+    success_url = reverse_lazy('libro:listado_libros')
+
+class ActualizarLibro(UpdateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'libro/libro/crear_libro.html'
+    success_url = reverse_lazy('libro:listado_libros')
+
+class EliminarLibro(DeleteView):
+    model = Libro
+
+    def post(self, request, pk, *args, **kwargs):
+        object = Libro.objects.get(id = pk)
+        object.estado = False 
+        object.save()
+        return redirect('libro:listado_libros')

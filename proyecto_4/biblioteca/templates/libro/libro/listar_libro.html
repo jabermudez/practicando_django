@@ -37,8 +37,8 @@
                         <td>{{ libro.fecha_publicacion }}</td>                       
                         <td colspan="2">
                             <div class="d-grid d-md-flex">
-                            <a href="" class="btn btn-primary mr-2" >Editar</a>
-                            <a href="" class="btn btn-danger" role="button">Eliminar</a>
+                            <a href="{% url 'libro:editar_libro' libro.id %}" class="btn btn-primary mr-2" >Editar</a>
+                            <a href="{% url 'libro:eliminar_libro' libro.id %}" class="btn btn-danger" role="button">Eliminar</a>
                             </div>
                         </td>
                     </tr>
