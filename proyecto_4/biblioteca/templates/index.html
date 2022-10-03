@@ -33,6 +33,8 @@
 
     <!-- Main CSS-->
     <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    {% block extracss %}
+    {% endblock extracss %}
 
 </head>
 
@@ -419,7 +421,9 @@
 
     <!-- Main JS-->
     <script src="{% static 'js/main.js' %}"></script>
+    {% block extrajs %}
 
+    {% endblock extrajs %}
 </body>
 
 </html>

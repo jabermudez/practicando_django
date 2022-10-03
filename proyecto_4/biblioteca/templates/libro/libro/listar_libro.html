@@ -7,6 +7,9 @@
 {% block titulo_central %} 
     <h2 class="title-1"> Listado Libros</h2>
 {% endblock titulo_central %}
+{% block extracss %}
+
+{% endblock extracss %}
 
 {% block body %}
 
@@ -37,7 +40,7 @@
                         <td>{{ libro.fecha_publicacion }}</td>                       
                         <td colspan="2">
                             <div class="d-grid d-md-flex">
-                            <a href="{% url 'libro:editar_libro' libro.id %}" class="btn btn-primary mr-2" >Editar</a>
+                            <button onclick="abrir_modal_edicion('{% url 'libro:editar_libro' libro.id %}')" class="btn btn-primary">Editar</button>
                             <a href="{% url 'libro:eliminar_libro' libro.id %}" class="btn btn-danger" role="button">Eliminar</a>
                             </div>
                         </td>
@@ -67,4 +70,19 @@
         <button type="submit" class="btn-success btn-lg">Registrar</button>
     </form>
 
+    <div class="modal fade  modal_actual"  id="edicion" role="dialog">
+
+    </div>
+
 {% endblock body %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    var $ = jQuery.noConflict();
+    function abrir_modal_edicion(url) {
+        $('#edicion').load(url, function() {
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock extrajs %}

@@ -130,7 +130,7 @@ class CrearLibro(CreateView):
 class ActualizarLibro(UpdateView):
     model = Libro
     form_class = LibroForm
-    template_name = 'libro/libro/listar_libro.html'
+    template_name = 'libro/libro/libro.html'
     success_url = reverse_lazy('libro:listado_libros')
 
     def get_context_data(self,**kwargs):
