@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import AutorForm, LibroForm
 from .models import Autor, Libro
-from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
+from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView, View
 from django.urls import reverse_lazy
 
 
@@ -98,22 +98,45 @@ def eliminarAutor(request,id):
 
 
 
-class ListadoLibros(ListView):
+class ListadoLibros(View):
     model = Libro
+    form_class = LibroForm
     template_name = 'libro/libro/listar_libro.html' # queryset = Libro.objects.all() object_list
-    queryset = Libro.objects.filter(estado = True)
 
+    def get_queryset(self):
+        return self.model.objects.filter(estado=True)
+    
+    def get_context_data(self,**kwargs):
+        contexto = {}
+        contexto['libros'] = self.get_queryset()
+        contexto['form'] = self.form_class
+        return contexto 
+    
+    def get(self,request,*args,**kwargs):
+        return render(request,self.template_name,self.get_context_data())
+    
+    def post(self,request,*args,**kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('libro:listado_libros')
+'''
 class CrearLibro(CreateView):
     model = Libro
     form_class = LibroForm
     template_name = 'libro/libro/crear_libro.html'
     success_url = reverse_lazy('libro:listado_libros')
-
+'''
 class ActualizarLibro(UpdateView):
     model = Libro
     form_class = LibroForm
-    template_name = 'libro/libro/crear_libro.html'
+    template_name = 'libro/libro/listar_libro.html'
     success_url = reverse_lazy('libro:listado_libros')
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['libros'] = Libro.objects.filter(estado = True)
+        return context
 
 class EliminarLibro(DeleteView):
     model = Libro
