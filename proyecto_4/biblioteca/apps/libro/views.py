@@ -97,6 +97,11 @@ def eliminarAutor(request,id):
     return render(request, 'libro/autor/eliminar_autor.html', {'autor':autor})
 
 
+class CrearLibro(CreateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'libro/libro/crear_libro.html'
+    success_url = reverse_lazy('libro:listado_libros')
 
 class ListadoLibros(View):
     model = Libro
@@ -115,11 +120,7 @@ class ListadoLibros(View):
     def get(self,request,*args,**kwargs):
         return render(request,self.template_name,self.get_context_data())
     
-    def post(self,request,*args,**kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('libro:listado_libros')
+    
 '''
 class CrearLibro(CreateView):
     model = Libro

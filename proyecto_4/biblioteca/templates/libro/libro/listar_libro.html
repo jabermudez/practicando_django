@@ -17,7 +17,9 @@
 {% endblock extracss %}
 
 {% block body %}
-
+<div>
+    <button class="btn btn-primary" type="button" onclick="abrir_modal_creacion('{% url 'libro:crear_libro' %}')">Crear Libro</button>
+</div>
 
     {% if libros %}
 
@@ -60,20 +62,10 @@
         <h1>No existen libros registrados</h1>
     {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <div class="card">
-            <div class="card-header">
-                <strong>Formulario de Registro</strong>
-            </div>
-            <div class="card-body card-block">
-                
-                {{ form.as_p }}
-               
-            </div>           
-        </div>
-        <button type="submit" class="btn-success btn-lg">Registrar</button>
-    </form>
+    <div  id="creacion" class="modal fade"  role="dialog"  data-backdrop="false">
+
+    </div>
+    
 
     <div  id="edicion" class="modal fade"  role="dialog"  data-backdrop="false">
 
@@ -86,6 +78,12 @@
     var $ = jQuery.noConflict();
     function abrir_modal_edicion(url) {
         $('#edicion').load(url, function() {
+            $(this).modal('show');
+        });
+    }
+
+    function abrir_modal_creacion(url){
+        $('#creacion').load(url,function(){
             $(this).modal('show');
         });
     }
