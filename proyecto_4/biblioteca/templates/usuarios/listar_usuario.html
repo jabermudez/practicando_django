@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+{% load static %}
 {% block titulo %}
     Listado de Usuarios
 {% endblock titulo %}
@@ -49,4 +49,7 @@
 
       
 {% endblock body %}
- 
+
+{% block extrajs %}
+<script src="{% static 'js/usuarios/index.js' %}"></script>
+{% endblock extrajs %}

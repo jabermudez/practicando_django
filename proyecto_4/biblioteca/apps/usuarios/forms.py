@@ -56,7 +56,7 @@ class FormularioUsuario(forms.ModelForm):
                     'placeholder': 'Ingrese sus nombres',
                 }
             ),
-            'nombres': forms.TextInput(
+            'apellidos': forms.TextInput(
                 attrs= {
                     'class': 'form-control',
                     'placeholder': 'Ingrese sus apellidos',
@@ -82,8 +82,8 @@ class FormularioUsuario(forms.ModelForm):
         
         '''
 
-        password1 = self.cleaned_data.get['password1']
-        password2 = self.cleaned_data.get['password2']
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
         if password1 != password2:
             raise forms.ValidationError('Contraseñas no coinciden')
         return password2
@@ -91,3 +91,6 @@ class FormularioUsuario(forms.ModelForm):
     def save(self,commit = True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+        return user
