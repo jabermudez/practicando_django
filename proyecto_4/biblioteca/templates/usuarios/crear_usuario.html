@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block titulo %}
+    Listado de Usuarios
+{% endblock titulo %}
+
+{% block titulo_central %} 
+    <h2 class="title-1"> Registro Usuarios</h2>
+{% endblock titulo_central %}
+
+{% block body %}
+
+   
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Ingrese los datos del usuario</strong>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="card-footer">
+                    <a href="{% url 'usuarios:listar_usuarios' %}" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                </div>
+            </form>
+        </div>
+       
+    </div>
+
+   
+       
+    
+      
+{% endblock body %}
+ 

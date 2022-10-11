@@ -96,19 +96,35 @@
                             <a href="{% url 'index' %}">
                                 <i class="fas fa-chart-bar"></i>Inicio</a>
                         </li>
+                        {% if request.user.is_staff %}
                         <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Usuarios</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="{% url 'libro:listar_autor' %}">Listar Usuarios</a>
+                                    <a href="{% url 'usuarios:listar_usuarios' %}">Listar Usuarios</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'libro:crear_autor' %}">Crear Usuarios</a>
+                                    <a href="{% url 'usuarios:registrar_usuarios' %}">Registrar Usuarios</a>
                                 </li>                                
                             </ul>
                         </li>
+                        {% endif %}
                         
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Autores</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="{% url 'libro:listar_autor' %}">Listar Autores</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'libro:crear_autor' %}">Crear Autores</a>
+                                </li>                                
+                            </ul>
+                        </li>
+
+
                         <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Libros</a>
