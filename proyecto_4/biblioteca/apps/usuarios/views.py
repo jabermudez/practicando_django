@@ -38,14 +38,11 @@ class ListadoUsuario(ListView):
     model = Usuario
     template_name = 'usuarios/listar_usuario.html'
 
-    def is_ajax(request): 
-        return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
-
     def get_queryset(self):
         return self.model.objects.filter(usuario_activo = True)
     
     def get(self,request,*args,**kwargs):
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             lista_usuarios = []
             for usuario in self.get_queryset():
                 data_usuario = {}
