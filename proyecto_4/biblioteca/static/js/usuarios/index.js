@@ -1,4 +1,6 @@
+var $ = jQuery.noConflict();  
 function listadoUsuarios(){
+      
     $.ajax({
         url:"/usuarios/listado_usuarios/",
         type:"get",

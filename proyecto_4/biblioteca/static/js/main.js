@@ -1,155 +1,58 @@
 var $ = jQuery.noConflict();
-
-jQuery(document).ready(function($) {
-
-	"use strict";
-
-	[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
-		new SelectFx(el);
+(function($) {	
+	"use strict"; // Start of use strict
+  
+	// Toggle the side navigation
+	$("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+	  $("body").toggleClass("sidebar-toggled");
+	  $(".sidebar").toggleClass("toggled");
+	  if ($(".sidebar").hasClass("toggled")) {
+		$('.sidebar .collapse').collapse('hide');
+	  };
 	});
-
-	jQuery('.selectpicker').selectpicker;
-
-
-	
-
-	$('.search-trigger').on('click', function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		$('.search-trigger').parent('.header-left').addClass('open');
+  
+	// Close any open menu accordions when window is resized below 768px
+	$(window).resize(function() {
+	  if ($(window).width() < 768) {
+		$('.sidebar .collapse').collapse('hide');
+	  };
+	  
+	  // Toggle the side navigation when window is resized below 480px
+	  if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+		$("body").addClass("sidebar-toggled");
+		$(".sidebar").addClass("toggled");
+		$('.sidebar .collapse').collapse('hide');
+	  };
 	});
-
-	$('.search-close').on('click', function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		$('.search-trigger').parent('.header-left').removeClass('open');
+  
+	// Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+	$('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+	  if ($(window).width() > 768) {
+		var e0 = e.originalEvent,
+		  delta = e0.wheelDelta || -e0.detail;
+		this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+		e.preventDefault();
+	  }
 	});
-
-	$('.equal-height').matchHeight({
-		property: 'max-height'
+  
+	// Scroll to top button appear
+	$(document).on('scroll', function() {
+	  var scrollDistance = $(this).scrollTop();
+	  if (scrollDistance > 100) {
+		$('.scroll-to-top').fadeIn();
+	  } else {
+		$('.scroll-to-top').fadeOut();
+	  }
 	});
-
-	// var chartsheight = $('.flotRealtime2').height();
-	// $('.traffic-chart').css('height', chartsheight-122);
-
-
-	// Counter Number
-	$('.count').each(function () {
-		$(this).prop('Counter',0).animate({
-			Counter: $(this).text()
-		}, {
-			duration: 3000,
-			easing: 'swing',
-			step: function (now) {
-				$(this).text(Math.ceil(now));
-			}
-		});
+  
+	// Smooth scrolling using jQuery easing
+	$(document).on('click', 'a.scroll-to-top', function(e) {
+	  var $anchor = $(this);
+	  $('html, body').stop().animate({
+		scrollTop: ($($anchor.attr('href')).offset().top)
+	  }, 1000, 'easeInOutExpo');
+	  e.preventDefault();
 	});
-
-
-	 
-	 
-	// Menu Trigger
-	$('#menuToggle').on('click', function(event) {
-		var windowWidth = $(window).width();   		 
-		if (windowWidth<1010) { 
-			$('body').removeClass('open'); 
-			if (windowWidth<760){ 
-				$('#left-panel').slideToggle(); 
-			} else {
-				$('#left-panel').toggleClass('open-menu');  
-			} 
-		} else {
-			$('body').toggleClass('open');
-			$('#left-panel').removeClass('open-menu');  
-		} 
-			 
-	}); 
-
-	 
-	$(".menu-item-has-children.dropdown").each(function() {
-		$(this).on('click', function() {
-			var $temp_text = $(this).children('.dropdown-toggle').html();
-			$(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>'); 
-		});
-	});
-
-
-	// Load Resize 
-	$(window).on("load resize", function(event) { 
-		var windowWidth = $(window).width();  		 
-		if (windowWidth<1010) {
-			$('body').addClass('small-device'); 
-		} else {
-			$('body').removeClass('small-device');  
-		} 
-		
-	});
-
- 
-});
-function abrir_modal_edicion(url) {
-	$('#edicion').load(url, function () {
-		$(this).modal('show');
-	});
-}
-function abrir_modal_creacion(url) {
-	$('#creacion').load(url, function () {
-		$(this).modal('show');
-	});
-}
-function abrir_modal_eliminacion(url) {
-	$('#eliminacion').load(url, function () {
-		$(this).modal('show');
-	});
-}
-function cerrar_modal_creacion(){
-	$('#creacion').modal('hide');
-}
-
-function cerrar_modal_edicion() {
-	$('#edicion').modal('hide');
-}
-function cerrar_modal_eliminacion() {
-	$('#eliminacion').modal('hide');
-}
-function activarBoton(){
-	if($('#boton_creacion').prop('disabled')){
-		$('#boton_creacion').prop('disabled',false);
-	}else{
-		$('#boton_creacion').prop('disabled', true);
-	}
-}
-
-function mostrarErroresCreacion(errores){
-	$('#errores').html("");
-	let error = "";
-	for(let item in errores.responseJSON.error){
-		error += '<div class = "alert alert-danger" <strong>' + errores.responseJSON.error[item] + '</strong></div>';
-	}
-	$('#errores').append(error);
-}
-function mostrarErroresEdicion(errores) {
-	$('#erroresEdicion').html("");
-	let error = "";
-	for (let item in errores.responseJSON.error) {
-		error += '<div class = "alert alert-danger" <strong>' + errores.responseJSON.error[item] + '</strong></div>';
-	}
-	$('#erroresEdicion').append(error);
-}
-
-function notificacionError(mensaje){
-	Swal.fire({
-		title: 'Error!',
-		text: mensaje,
-		icon: 'error'
-	})
-}
-
-function notificacionSuccess(mensaje) {
-	Swal.fire({
-		title: 'Buen Trabajo!',
-		text: mensaje,
-		icon: 'success'
-	})
-}
+  
+  })(jQuery); // End of use strict
+  
