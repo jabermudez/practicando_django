@@ -8,15 +8,19 @@
     <h2 class="title-1"> Listado Usuarios</h2>
 {% endblock titulo_central %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/lib/datatable/dataTables.bootstrap.min.css' %}">
+{% endblock extra_css %}
+
 {% block body %}
 
-    {% if object_list %}
+    
 
-    <div class="table-responsive m-b-40">
-        <table class="table table-borderless table-data3">
+    <div class="table-stats order-table ov-h">
+        <table id="table_usuarios" class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>Nombre Usuario</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>                    
@@ -24,30 +28,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for usuario in object_list %}
-                    <tr>
-                        <td>{{ usuario.id }}</td>
-                        <td>{{ usuario.username }}</td> 
-                        <td>{{ usuario.nombres}}</td>
-                        <td>{{ usuario.apellidos}}</td>                                         
-                        <td colspan="2">
-                            <div class="d-grid d-md-flex">
-                            <a href="" class="btn btn-primary" >Editar</a>
-                            <a href="" class="btn btn-danger" role="button">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
+                
             </tbody>
         </table>
     </div>
 
        
-    {% else %}
-        <h1>No existen usuarios registrados</h1>
-    {% endif %}
-
-      
 {% endblock body %}
 
 {% block extrajs %}
