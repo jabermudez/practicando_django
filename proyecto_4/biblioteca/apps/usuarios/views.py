@@ -42,7 +42,11 @@ class ListadoUsuario(ListView):
         return self.model.objects.filter(usuario_activo = True)
     
     def get(self,request,*args,**kwargs):
+<<<<<<< HEAD
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+=======
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+>>>>>>> eb62ba91f88f02c04db184e3204bc03095e42ef6
             lista_usuarios = []
             for usuario in self.get_queryset():
                 data_usuario = {}
