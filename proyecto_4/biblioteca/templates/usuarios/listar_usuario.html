@@ -17,7 +17,7 @@
     
 
     <div class="table-stats order-table ov-h">
-        <table id="table_usuarios" class="table">
+        <table id="tabla_usuarios" class="table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -37,5 +37,8 @@
 {% endblock body %}
 
 {% block extrajs %}
+    <script src="{% static 'js/lib/data-table/datatables.min.js' %}"></script>
+    <script src="{% static 'js/lib/data-table/dataTables.bootstrap.min.js' %}"></script>
     <script src="{% static 'js/usuarios/index.js' %}"></script>
+
 {% endblock extrajs %}

@@ -6,7 +6,7 @@ function listadoUsuarios(){
         type:"get",
         dataType:"json",
         success:function(response){
-            console.log(response);
+            $('#tabla_usuarios').DataTable();
         },
         error: function(error){
             console.log(error);
@@ -15,5 +15,5 @@ function listadoUsuarios(){
 }
 
 $(document).ready(function(){
-    listadoUsuarios()
+    listadoUsuarios();
 });
