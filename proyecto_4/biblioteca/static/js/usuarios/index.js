@@ -1,19 +1,17 @@
 var $ = jQuery.noConflict();  
-function listadoUsuarios(){
-      
+function listadoUsuarios(){      
     $.ajax({
         url:"/usuarios/listado_usuarios/",
         type:"get",
         dataType:"json",
-        success:function(response){
+        success: function(response){
             $('#tabla_usuarios tbody').html("");
-            for(let i = 0; i < response.length;i++){
+            for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
                 fila += '<td>' + (i +1 ) + '</td>';
                 fila += '<td>' + response[i]["fields"]['username'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['nombres'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['apellidos'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['email'] + '</td>';
+
+                
                 fila += '</tr>';
                 $('#tabla_usuarios tbody').append(fila);
             }
