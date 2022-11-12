@@ -5,17 +5,17 @@ function listadoUsuarios(){
         type:"get",
         dataType:"json",
         success: function(response){
-            $('#tabla_usuarios').html("");
+            $('#tabla_usuarios tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
                 fila += '<td>' + (i +1 ) + '</td>';
-                fila += '<td>' + response[i]["fields"]['username'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['nombres'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['apellidos'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['email'] + '</td>';
-                fila += '<td> <button>EDITAR </button><button>ELIMINAR</button> </td>';                
+                fila += '<td>' + response[i]['username'] + '</td>';
+                fila += '<td>' + response[i]['nombres'] + '</td>';   
+                fila += '<td>' + response[i]['apellidos'] + '</td>';  
+                fila += '<td>' + response[i]['email'] + '</td>';  
+                fila += '<td> <button>Editar</button><button>Eliminar</button> </td>';         
                 fila += '</tr>';
-                $('#tabla_usuarios').append(fila);
+                $('#tabla_usuarios tbody').append(fila);
             }
             $('#tabla_usuarios').DataTable({
                 language: {

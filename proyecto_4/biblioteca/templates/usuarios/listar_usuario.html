@@ -14,8 +14,10 @@
 
 {% block body %}
 
-    
-
+ <div class="card">   
+    <div class="card-header">
+       <strong class="card-title"> Listado Usuarios</strong>
+    </div>
     <div class="table-stats order-table ov-h">
         <table id="tabla_usuarios" class="table">
             <thead>
@@ -28,18 +30,20 @@
                     <th>Opciones</th>
                 </tr>
             </thead>
-            <tbody>
-                
+            <tbody>                
             </tbody>
         </table>
     </div>
+</div>
 
-       
+ <div  id="creacion" class="modal fade"  role="dialog"  data-backdrop="false">
+
+    </div>
 {% endblock body %}
 
 {% block extrajs %}
 
-<script src="{% static 'js/lib/data-table/datatables.min.js' %}"></script>
+    <script src="{% static 'js/lib/data-table/datatables.min.js' %}"></script>
     <script src="{% static 'js/lib/data-table/dataTables.bootstrap.min.js' %}"></script>
     <script src="{% static 'js/usuarios/index.js' %}"></script>
 
